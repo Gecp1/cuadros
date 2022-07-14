@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anaconda</title>
+  <link rel="stylesheet" href="solution.css">
+</head>
+
+<body>
+
+  <button id="newGrid">Nueva Cuadrícula</button>
+  
+  <div id="grilla">
+  
+  </div>
+
+</body>
+
+<script>
+
+function CrearCuadricula(N) {
+
+  console.log(N);
+
+  var pixelcel=Math.ceil(960/N);
+  var textpixelcel=pixelcel.toString();
+  var textN=N.toString();
+  var textcolumns="repeat(";
+
+  textcolumns=textcolumns.concat(textN,",",textpixelcel,"px)");
+  textpixelcel=textpixelcel.concat("px");
+  console.log(textN);
+  console.log(textpixelcel);
+  console.log(textcolumns);
+
+  BorrarCuadricula();
+
+  let malla = document.createElement("div");
+  malla.id = "grilla"
+  document.body.appendChild(malla);
+  let container = document.getElementById("grilla");
+  container.style.gridTemplateColumns = textcolumns;
+
+  console.log(container.style.gridTemplateColumns);
+  container.style.gridAutoRows = textpixelcel;
+  
+  for ( var cuadros = 0; cuadros < (N*N); cuadros++) {
+   
+ 
+    let cell = document.createElement("div");
+    cell.className = "celda";
+    container.appendChild(cell);
+    
+  }
+
+  
+  Escucha();
+
+};
+
+function BorrarCuadricula() {
+
+const element = document.getElementById("grilla");
+element.remove();
+
+
+};
+
+
+
+function Escucha() {
+
+let test = document.getElementById("grilla");
+
+test.addEventListener("mouseover", function( event ) {
+  
+  event.target.style = "background-color:black";
+
+  
+  
+  setTimeout(function() {
+    event.target.style = "background-color:aquamarine";
+    event.target.style = "outline:1px solid #000;";
+
+  }, 3000);
+}, false);
+
+};
+
+
+
+let espicha = document.getElementById("newGrid");
+
+espicha.addEventListener("click", function () {
+  
+  var numcuadros=prompt("Cuantos cuadros por lado?");
+
+  if (numcuadros <= 100) {
+
+  CrearCuadricula(numcuadros);
+  }
+
+  else { alert("Ingrese un numero de cuadros por lado menor o igual a 100");
+  }
+
+});
+
+
+</script>
+
+</html>
